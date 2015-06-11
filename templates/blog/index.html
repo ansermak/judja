@@ -1,0 +1,9 @@
+{% if posts %}
+    <table>
+        {% for post in posts %}
+            <tr><td><a href="/posts/{{post.title}}/">{{post.title}}</a></td>
+                <td><a href="/authors/{{post.author}}/">{{post.author}}</a></td></tr>
+        {% endfor %}
+    </table>
+{% else %}
+{% endif %}
