@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+{% if post %}
+<div class="page-header">
+<h1>{{post.title}}</h1></div>
+{{post.text}}
+{% endif %}
+{% endblock %}

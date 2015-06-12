@@ -1,9 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
 {% if posts %}
-    <table>
-        {% for post in posts %}
-            <tr><td><a href="/posts/{{post.title}}/">{{post.title}}</a></td>
-                <td><a href="/authors/{{post.author}}/">{{post.author}}</a></td></tr>
-        {% endfor %}
-    </table>
+        <div class="page-header">
+            <h1>Останні записи</h1></div>
+        <table class="table">
+            {% for post in posts %}
+                <tr><td><a href="{% url 'blog:post' post.title %}">{{post.title}}</a></td>
+                    <td><a href="{% url 'blog:author' post.author %}">{{post.author}}</a></td></tr>
+            {% endfor %}
+        </table>
 {% else %}
 {% endif %}
+{% endblock %}

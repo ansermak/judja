@@ -1,8 +1,0 @@
-{% if author %}
-    {{author.name}}<br>
-    {% if posts %}
-    {% for post in posts %}
-        <a href="/posts/{{post.title}}/">{{post.title}}</a><br>
-    {% endfor %}
-    {% endif %}
-{% endif %}

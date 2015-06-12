@@ -1,34 +1,45 @@
-from django.http import HttpResponse
-from django.shortcuts import render
-from django.template import RequestContext, loader
+from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponseRedirect
+# from django.views import generic
 
+from .forms import AuthorForm
 from .models import Author, Post
 
 
+# class IndexView(generic.ListView):
+#     template_name = 'blog/index.html'
+#     context_object_name = 'posts'
+
+#     def get_queryset(self):
+#         return Post.objects.order_by('-pub_date').all()
+
+
 def index(request):
-    posts = Post.objects.order_by('pub_date').all()
-    template = loader.get_template('blog/index.html')
-    context = RequestContext(request, {
-        'posts': posts,
-    })
-    return HttpResponse(template.render(context))
+    posts = Post.objects.order_by('-pub_date').all()
+    context = {'posts': posts}
+    return render(request, 'blog/index.html', context)
 
 
 def post(request, post_title):
-    post = Post.objects.get(title=post_title)
-    template = loader.get_template('blog/posts/index.html')
-    context = RequestContext(request, {
-        'post': post,
-    })
-    return HttpResponse(template.render(context))
+    post = get_object_or_404(Post, title=post_title)
+    context = {'post': post}
+    return render(request, 'blog/post.html', context)
 
 
 def author(request, post_author):
-    author = Author.objects.get(name=post_author)
+    author = get_object_or_404(Author, name=post_author)
     posts = Post.objects.filter(author=author)
-    template = loader.get_template('blog/authors/index.html')
-    context = RequestContext(request, {
-        'author': author,
-        'posts': posts,
-    })
-    return HttpResponse(template.render(context))
+    context = {'author': author,
+               'posts': posts,
+               }
+    return render(request, 'blog/author.html', context)
+
+
+def new_author(request):
+    if request.method == 'POST':
+        form = AuthorForm(request.POST)
+        if form.is_valid():
+            return HttpResponseRedirect('/')
+    else:
+        form = AuthorForm()
+    return render(request, 'blog/new_author.html', {'form': form})
