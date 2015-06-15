@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 # from django.views import generic
 
 from .forms import AuthorForm
-from .models import Author, Post
+from .models import Author, Post, Image
 
 
 # class IndexView(generic.ListView):
@@ -22,7 +22,8 @@ def index(request):
 
 def post(request, post_title):
     post = get_object_or_404(Post, title=post_title)
-    context = {'post': post}
+    images = Image.objects.filter(post=post).all()
+    context = {'post': post, 'images':images}
     return render(request, 'blog/post.html', context)
 
 
