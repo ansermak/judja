@@ -1,4 +1,5 @@
 from django.db import models
+from redactor.fields import RedactorField
 
 
 class Author(models.Model):
@@ -10,7 +11,7 @@ class Author(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=200)
-    text = models.TextField()
+    text = RedactorField(verbose_name=u'Текст')
     author = models.ForeignKey(Author)
     pub_date = models.DateTimeField('date published', auto_now_add=True)
     change_date = models.DateTimeField('date_changed', auto_now=True)
