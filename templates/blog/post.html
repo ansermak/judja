@@ -5,7 +5,7 @@
 <h1>{{post.title}}</h1></div>
 {{post.text|safe}}
 <div class="row">
-{% for image in images %}
+{% for image in post.image_set.all %}
 <div class="col-sm-3 col-xs-2">
     <h3>{{image}}</h3>
     <img style="width:200px" class="img-rounded img-responsive" src="/media/{{image.image_file.name}}" alt="{{image.title}}"/></div>
