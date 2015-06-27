@@ -21,13 +21,11 @@
     <body>
         {% include 'menu.html' %}
         <div class="container">
-            <div class="row">
-                <img src="/media/images/autumn.jpg" class="img-responsive">
+            
+            <div class="jumbotron" style="background-image:url('/media/images/autumn.jpg');height:400px">                
             </div>
-            <div class="jumbotron">
-                {% block content %}
-                {% endblock %}
-            </div>
+            {% block content %}
+            {% endblock %}
         </div>
         <div class="row">
           <div class="">
